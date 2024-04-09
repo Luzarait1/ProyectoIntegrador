@@ -9,16 +9,18 @@ public class Tarea {
     private String nombre;
     private String descripcion;
     private TaskStatus status_t;
+    private TaskType type;
     private LocalDateTime startDate;
     private LocalDateTime dueDate;
     private LocalDateTime createdDate;
     private LocalDateTime lastUpdatedDate;
 
-    public Tarea(UUID uuid_tarea, String nombre, String descripcion, TaskStatus status_t, LocalDateTime startDate, LocalDateTime dueDate, LocalDateTime createdDate, LocalDateTime lastUpdatedDate) {
+    public Tarea(UUID uuid_tarea, String nombre, String descripcion, TaskStatus status_t, TaskType type, LocalDateTime startDate, LocalDateTime dueDate, LocalDateTime createdDate, LocalDateTime lastUpdatedDate) {
         this.uuid_tarea = uuid_tarea;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.status_t = status_t;
+        this.type = type;
         this.startDate = startDate;
         this.dueDate = dueDate;
         this.createdDate = createdDate;
@@ -55,6 +57,14 @@ public class Tarea {
 
     public void setStatus_t(TaskStatus status_t) {
         this.status_t = status_t;
+    }
+
+    public TaskType getType() {
+        return type;
+    }
+
+    public void setType(TaskType type) {
+        this.type = type;
     }
 
     public LocalDateTime getStartDate() {

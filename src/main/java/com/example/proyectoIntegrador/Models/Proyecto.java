@@ -5,15 +5,15 @@ import java.util.UUID;
 
 public class Proyecto {
 
-    private UUID uuid;
+    private long idProyecto;
     private String nombre;
     private String descripcion;
     private ProjectStatus status;
     private LocalDateTime createdDate;
     private LocalDateTime lastUpdatedTime;
 
-    public Proyecto(UUID uuid, String nombre, String descripcion, ProjectStatus status, LocalDateTime createdDate, LocalDateTime lastUpdatedTime) {
-        this.uuid = uuid;
+    public Proyecto(long idProyecto, String nombre, String descripcion, ProjectStatus status, LocalDateTime createdDate, LocalDateTime lastUpdatedTime) {
+        this.idProyecto = idProyecto;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.status = status;
@@ -21,12 +21,16 @@ public class Proyecto {
         this.lastUpdatedTime = lastUpdatedTime;
     }
 
-    public UUID getUuid() {
-        return uuid;
+    public Proyecto() {
+
     }
 
-    public void setUuid(UUID uuid) {
-        this.uuid = uuid;
+    public long getIdProyecto() {
+        return idProyecto;
+    }
+
+    public void setIdProyecto(long idProyecto) {
+        this.idProyecto = idProyecto;
     }
 
     public String getNombre() {
@@ -67,5 +71,17 @@ public class Proyecto {
 
     public void setLastUpdatedTime(LocalDateTime lastUpdatedTime) {
         this.lastUpdatedTime = lastUpdatedTime;
+    }
+
+    @Override
+    public String toString() {
+        return "Proyecto{" +
+                "idProyecto=" + idProyecto +
+                ", nombre='" + nombre + '\'' +
+                ", descripcion='" + descripcion + '\'' +
+                ", status=" + status +
+                ", createdDate=" + createdDate +
+                ", lastUpdatedTime=" + lastUpdatedTime +
+                '}';
     }
 }
