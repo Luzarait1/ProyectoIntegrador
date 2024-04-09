@@ -1,55 +1,56 @@
 package com.example.proyectoIntegrador.Service;
 
 import com.example.proyectoIntegrador.Models.Proyecto;
-import com.example.proyectoIntegrador.Models.Usuario;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.List;
-import java.util.UUID;
-import java.util.stream.Collectors;
+import java.util.*;
 
 @Service
 public class ProyectoGestion {
 
     List<Proyecto> proyectos = new ArrayList<>();
 
-    public String crearProyecto(Usuario usuario, Proyecto proyecto) {
+    public Proyecto crearProyecto(Proyecto proyecto) {
         proyectos.add(proyecto);
-        return "El usuario" + usuario + "ha creado un nuevo proyecto con id" + proyecto.getIdProyecto();
+        System.out.println("El proyecto se creo exitosamente");
+        return proyecto;
     }
 
     public String editarProyecto(long idProyecto, Proyecto proyecto) {
+        Optional<Proyecto> proyectoExiste = proyectos.stream()
+                .filter(p -> p.getIdProyecto() == idProyecto)
+                .findFirst();
 
-        for (Proyecto proyecto1: proyectos) {
-            long id = proyecto.getIdProyecto();
-            if (id == idProyecto) {
-                return "El proyecto existe y se puede editar";
-            }
-        }
-        return "Error: El proyecto no existe, no se puede editar";
-    }
-
-    public String borrarProyecto(long idProyecto) {
-
-        for (Proyecto proyecto: proyectos) {
-            long id = proyecto.getIdProyecto();
-            if (id == idProyecto) {
-                proyectos.remove(proyecto);
-                return "El proyecto fue eliminado exitosamente";
-            }
+        if (proyectoExiste.isPresent()) {
+            Proyecto encontrado = proyectoExiste.get();
+            System.out.println("El proyecto que se va a modificar es: " + encontrado);
+            return "El proyecto fue editado correctamente";
         }
         return "El proyecto no existe";
     }
 
-    public String obtenerProyectoPorId(long idProyecto ) {
-        for (Proyecto proyecto : proyectos) {
-            long id = proyecto.getIdProyecto();
-            if (id == idProyecto) {
-                return "El proyecto fue encontrado" + proyecto.toString();
-            }
+    public String borrarProyecto(long idProyecto) {
+        Optional<Proyecto> proyectoExiste = proyectos.stream()
+                .filter(p -> p.getIdProyecto() == idProyecto)
+                .findFirst();
+
+        if (proyectoExiste.isPresent()) {
+            proyectos.remove(proyectoExiste);
+            return "El proyecto fue borrado exitosamente";
         }
-        return "El proyecto no fue encontrado o no existe";
+        return "El proyecto no existe";
     }
+
+    public void eliminarProyecto(long idProyecto) {
+        Proyecto proyecto = obtenerProyectoPorId(idProyecto);
+        this.proyectos.remove(proyecto);
+    }
+
+    public Proyecto obtenerProyectoPorId(long idProyecto ) {
+        return this.proyectos.stream()
+                .filter(proyecto -> proyecto.getIdProyecto() == idProyecto)
+                .findFirst().get();
+    }
+
+
 }
