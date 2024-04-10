@@ -61,10 +61,6 @@ public class Proyecto {
         return createdDate;
     }
 
-    public void setCreatedDate(LocalDateTime createdDate) {
-        this.createdDate = createdDate;
-    }
-
     public LocalDateTime getLastUpdatedTime() {
         return lastUpdatedTime;
     }

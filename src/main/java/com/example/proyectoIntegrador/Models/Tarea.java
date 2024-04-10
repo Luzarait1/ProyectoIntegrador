@@ -5,7 +5,7 @@ import java.util.UUID;
 
 public class Tarea {
 
-    private UUID uuid_tarea;
+    private long idTarea;
     private String nombre;
     private String descripcion;
     private TaskStatus status_t;
@@ -15,8 +15,8 @@ public class Tarea {
     private LocalDateTime createdDate;
     private LocalDateTime lastUpdatedDate;
 
-    public Tarea(UUID uuid_tarea, String nombre, String descripcion, TaskStatus status_t, TaskType type, LocalDateTime startDate, LocalDateTime dueDate, LocalDateTime createdDate, LocalDateTime lastUpdatedDate) {
-        this.uuid_tarea = uuid_tarea;
+    public Tarea(long idTarea, String nombre, String descripcion, TaskStatus status_t, TaskType type, LocalDateTime startDate, LocalDateTime dueDate, LocalDateTime createdDate, LocalDateTime lastUpdatedDate) {
+        this.idTarea = idTarea;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.status_t = status_t;
@@ -27,12 +27,12 @@ public class Tarea {
         this.lastUpdatedDate = lastUpdatedDate;
     }
 
-    public UUID getUuid_tarea() {
-        return uuid_tarea;
+    public long getIdTarea() {
+        return idTarea;
     }
 
-    public void setUuid_tarea(UUID uuid_tarea) {
-        this.uuid_tarea = uuid_tarea;
+    public void setIdTarea(long idTarea) {
+        this.idTarea = idTarea;
     }
 
     public String getNombre() {
@@ -85,10 +85,6 @@ public class Tarea {
 
     public LocalDateTime getCreatedDate() {
         return createdDate;
-    }
-
-    public void setCreatedDate(LocalDateTime createdDate) {
-        this.createdDate = createdDate;
     }
 
     public LocalDateTime getLastUpdatedDate() {
