@@ -1,15 +1,33 @@
 package com.example.proyectoIntegrador.Models;
 
+import jakarta.persistence.*;
+import org.springframework.boot.autoconfigure.domain.EntityScan;
+
 import java.time.LocalDateTime;
 import java.util.UUID;
 
+@Entity
+@Table(name = "Proyecto")
+
 public class Proyecto {
 
+    @Id
+    @GeneratedValue()
     private long idProyecto;
+
+    @Column (name = "nombre", nullable = false)
     private String nombre;
+
+    @Column (name = "descripcion", nullable = false)
     private String descripcion;
+
+    @Column (name = "status", nullable = false)
     private ProjectStatus status;
+
+    @Column (name = "createdDate", nullable = false)
     private LocalDateTime createdDate;
+
+    @Column (name = "lastUpdatedTime", nullable = false)
     private LocalDateTime lastUpdatedTime;
 
     public Proyecto(long idProyecto, String nombre, String descripcion, ProjectStatus status, LocalDateTime createdDate, LocalDateTime lastUpdatedTime) {

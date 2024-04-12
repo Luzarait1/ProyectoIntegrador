@@ -1,6 +1,5 @@
 package com.example.proyectoIntegrador.Service;
 
-import com.example.proyectoIntegrador.Models.Proyecto;
 import com.example.proyectoIntegrador.Models.Tarea;
 import org.springframework.stereotype.Service;
 
@@ -8,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class TareaGestion {
+public class TareaService {
 
     public List<Tarea> tareas = new ArrayList<>();
 

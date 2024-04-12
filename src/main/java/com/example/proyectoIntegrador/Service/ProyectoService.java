@@ -1,20 +1,45 @@
 package com.example.proyectoIntegrador.Service;
 
 import com.example.proyectoIntegrador.Models.Proyecto;
+import com.example.proyectoIntegrador.Repository.ProyectoJpaRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.*;
 
 @Service
-public class ProyectoGestion {
+public class ProyectoService {
+
+    @Autowired
+    private ProyectoJpaRepository proyectoJpaRepository;
+    public ProyectoService(ProyectoJpaRepository proyectoJpaRepository) {
+        this.proyectoJpaRepository = proyectoJpaRepository;
+    }
+
 
     List<Proyecto> proyectos = new ArrayList<>();
 
     public Proyecto crearProyecto(Proyecto proyecto) {
-        proyectos.add(proyecto);
-        System.out.println("El proyecto se creo exitosamente");
+        proyectoJpaRepository.save(proyecto);
         return proyecto;
     }
+
+    /*
+    public Proyecto createProject(Proyecto proyecto) {
+
+        if(proyecto.getIdProyecto() <= 0) {
+            System.out.println("El ID del proyecto no puede ser negativo o cero");
+        }
+
+        if(proyecto.getNombre() == null) {
+            System.out.println("El nombre del proyecto no puede ser nulo");
+        }
+
+        if(proyecto.getCreatedDate() == null) {
+            System.out.println("La fecha de creacion del proyecto no puede ser nula");
+        }
+        return proyecto;
+    } */
 
     public Proyecto editarProyecto(long idProyecto, Proyecto proyecto) {
         Optional<Proyecto> proyectoExiste = proyectos.stream()
@@ -38,6 +63,8 @@ public class ProyectoGestion {
         this.proyectos.remove(proyecto);
         System.out.println("El proyecto fue eliminado correctamente");
     }
+
+
 
     public Proyecto obtenerProyectoPorId(long idProyecto) {
         return this.proyectos.stream()
