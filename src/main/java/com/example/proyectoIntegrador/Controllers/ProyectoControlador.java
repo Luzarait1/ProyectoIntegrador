@@ -43,6 +43,8 @@ public class ProyectoControlador {
         return this.proyectoService.obtenerProyectoPorId(identificacion);
     }
 
+    //---------------------------------------------------------------------------------------------------
+
     //Controladores para Tarea
     @GetMapping("/tareas/{idTarea}")
     public Tarea obtenerTarea(@PathVariable("idTarea") long idTarea) {

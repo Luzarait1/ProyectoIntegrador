@@ -10,21 +10,52 @@ import java.util.*;
 @Service
 public class ProyectoService {
 
-    @Autowired
+
     private ProyectoJpaRepository proyectoJpaRepository;
+    @Autowired
     public ProyectoService(ProyectoJpaRepository proyectoJpaRepository) {
         this.proyectoJpaRepository = proyectoJpaRepository;
     }
 
-
-    List<Proyecto> proyectos = new ArrayList<>();
+    //List<Proyecto> proyectos = new ArrayList<>();
 
     public Proyecto crearProyecto(Proyecto proyecto) {
         proyectoJpaRepository.save(proyecto);
+        System.out.println("El proyecto se ha creado exitosamente");
         return proyecto;
     }
 
-    /*
+    public Proyecto editarProyecto(long idProyecto, Proyecto proyecto) {
+        Optional<Proyecto> proyectoExiste = proyectoJpaRepository.findById(idProyecto);
+
+        if(proyectoExiste.isPresent()) {
+            proyectoJpaRepository.save(proyecto);
+            System.out.println("El proyecto con id " + idProyecto + " se edito correctamente");
+        } else {
+            System.out.println("El proyecto con id " + idProyecto + " no se logro editar");
+        }
+        return proyecto;
+    }
+
+    public void eliminarProyecto(long idProyecto) {
+        proyectoJpaRepository.deleteById(idProyecto);
+        System.out.println("El proyecto con id " + idProyecto + " ha sido eliminado correctamente");
+    }
+
+    public Proyecto obtenerProyectoPorId(long idProyecto) {
+        Optional<Proyecto> proyectoEncontrado = proyectoJpaRepository.findById(idProyecto);
+        if (proyectoEncontrado.isPresent()) {
+            System.out.println("El proyecto con id " + idProyecto + " se ha encontrado");
+            return proyectoEncontrado.get();
+        } else {
+            System.out.println("El proyecto con id " + idProyecto + " no se encontro ");
+        }
+        return null;
+    }
+
+}
+
+/*
     public Proyecto createProject(Proyecto proyecto) {
 
         if(proyecto.getIdProyecto() <= 0) {
@@ -39,7 +70,8 @@ public class ProyectoService {
             System.out.println("La fecha de creacion del proyecto no puede ser nula");
         }
         return proyecto;
-    } */
+    }
+
 
     public Proyecto editarProyecto(long idProyecto, Proyecto proyecto) {
         Optional<Proyecto> proyectoExiste = proyectos.stream()
@@ -58,17 +90,17 @@ public class ProyectoService {
         return proyecto;
     }
 
-    public void eliminarProyecto(long idProyecto) {
-        Proyecto proyecto = obtenerProyectoPorId(idProyecto);
-        this.proyectos.remove(proyecto);
-        System.out.println("El proyecto fue eliminado correctamente");
-    }
-
-
 
     public Proyecto obtenerProyectoPorId(long idProyecto) {
         return this.proyectos.stream()
                 .filter(proyecto -> proyecto.getIdProyecto() == idProyecto)
                 .findFirst().get();
     }
-}
+
+
+    public void eliminarProyecto(long idProyecto) {
+        Proyecto proyecto = obtenerProyectoPorId(idProyecto);
+        this.proyectos.remove(proyecto);
+        System.out.println("El proyecto fue eliminado correctamente");
+    }
+ */
