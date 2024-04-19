@@ -4,15 +4,17 @@ import jakarta.persistence.*;
 import org.springframework.boot.autoconfigure.domain.EntityScan;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Entity
-@Table(name = "Proyecto")
+@Table(name = "proyecto")
 
 public class Proyecto {
 
     @Id
-    @GeneratedValue()
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long idProyecto;
 
     @Column (name = "nombre", nullable = false)
@@ -30,13 +32,18 @@ public class Proyecto {
     @Column (name = "lastUpdatedTime", nullable = false)
     private LocalDateTime lastUpdatedTime;
 
-    public Proyecto(long idProyecto, String nombre, String descripcion, ProjectStatus status, LocalDateTime createdDate, LocalDateTime lastUpdatedTime) {
+    @OneToMany(mappedBy = "proyecto", cascade = CascadeType.ALL)
+    @PrimaryKeyJoinColumn
+    private List<Tarea> listaTareas = new ArrayList<>();
+
+    public Proyecto(long idProyecto, String nombre, String descripcion, ProjectStatus status, LocalDateTime createdDate, LocalDateTime lastUpdatedTime, List<Tarea> listaTareas) {
         this.idProyecto = idProyecto;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.status = status;
         this.createdDate = createdDate;
         this.lastUpdatedTime = lastUpdatedTime;
+        this.listaTareas = listaTareas;
     }
 
     public Proyecto() {
@@ -85,6 +92,18 @@ public class Proyecto {
 
     public void setLastUpdatedTime(LocalDateTime lastUpdatedTime) {
         this.lastUpdatedTime = lastUpdatedTime;
+    }
+
+    public List<Tarea> getListaTareas() {
+        return listaTareas;
+    }
+
+    public void setListaTareas(List<Tarea> listaTareas) {
+        this.listaTareas = listaTareas;
+    }
+
+    public void setCreatedDate(LocalDateTime createdDate) {
+        this.createdDate = createdDate;
     }
 
     @Override

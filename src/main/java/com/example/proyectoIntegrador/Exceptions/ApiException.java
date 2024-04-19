@@ -1,6 +1,6 @@
 package com.example.proyectoIntegrador.Exceptions;
 
-public class ApiException  extends RuntimeException{
+public class ApiException extends RuntimeException{
     private int codigo;
 
     public ApiException(String mensaje) {
@@ -12,7 +12,7 @@ public class ApiException  extends RuntimeException{
         this.codigo = codigo;
     }
 
-    public long getCodifo() {
+    public int getCodigo() {
         return codigo;
     }
 

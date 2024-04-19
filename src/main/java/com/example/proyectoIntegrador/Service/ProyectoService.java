@@ -1,11 +1,16 @@
 package com.example.proyectoIntegrador.Service;
 
+import com.example.proyectoIntegrador.DTO.ProyectoDto;
+import com.example.proyectoIntegrador.Exceptions.ApiException;
+import com.example.proyectoIntegrador.Models.ProjectStatus;
 import com.example.proyectoIntegrador.Models.Proyecto;
 import com.example.proyectoIntegrador.Repository.ProyectoJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.*;
+import java.util.stream.Collectors;
 
 @Service
 public class ProyectoService {
@@ -19,11 +24,44 @@ public class ProyectoService {
 
     //List<Proyecto> proyectos = new ArrayList<>();
 
-    public Proyecto crearProyecto(Proyecto proyecto) {
+    public Proyecto crearProyecto(ProyectoDto proyectoDto) {
+        Proyecto nuevoProyecto = new Proyecto();
+        nuevoProyecto.setNombre(proyectoDto.getNombre());
+        nuevoProyecto.setDescripcion(proyectoDto.getDescripcion());
+        nuevoProyecto.setStatus(ProjectStatus.ACTIVE);
+        nuevoProyecto.setCreatedDate(LocalDateTime.now());
+        nuevoProyecto.setLastUpdatedTime(LocalDateTime.now());
+
+        Proyecto proyectoGuardado = proyectoJpaRepository.save(nuevoProyecto);
+        return proyectoGuardado;
+    }
+
+    /*
+    public ProyectoDto create(Proyecto proyecto) {
+        if(proyecto == null) {
+            throw new ApiException(400, "El proyecto es nulo");
+        }
+
+        if(proyecto.getIdProyecto() == 0 || proyecto.getNombre() == null || proyecto.getCreatedDate() == null) {
+            throw new ApiException(400, "El ID, nombre y fecha de creacion del proyecto no pueden ser nulos");
+        }
+        if(proyectoJpaRepository.existsById(proyecto.getIdProyecto())) {
+            throw new ApiException(400, "El proyecto con ID " + proyecto.getIdProyecto() + " ya existe");
+        }
+
         proyectoJpaRepository.save(proyecto);
         System.out.println("El proyecto se ha creado exitosamente");
-        return proyecto;
+
+        // Pasar de entidad a DTO
+        return proyectoJpaRepository.findAll().stream()
+                .map(proyecto -> new ProyectoDto(
+                        proyecto.getNombre(),
+                        proyecto.getStatus(),
+                        proyecto.getLastUpdatedTime()
+                )).collect(Collectors.toList());
     }
+
+     */
 
     public Proyecto editarProyecto(long idProyecto, Proyecto proyecto) {
         Optional<Proyecto> proyectoExiste = proyectoJpaRepository.findById(idProyecto);
@@ -102,5 +140,24 @@ public class ProyectoService {
         Proyecto proyecto = obtenerProyectoPorId(idProyecto);
         this.proyectos.remove(proyecto);
         System.out.println("El proyecto fue eliminado correctamente");
+    }
+
+
+
+
+    proyecto antes del DTO
+    public Proyecto crearProyecto(Proyecto proyecto) {
+        if(proyecto == null) {
+            throw new ApiException(400, "El proyecto es nulo");
+        }
+        if(proyecto.getIdProyecto() == 0 || proyecto.getNombre() == null || proyecto.getCreatedDate() == null) {
+            throw new ApiException(400, "El ID, nombre y fecha de creacion del proyecto no pueden ser nulos");
+        }
+        if(proyectoJpaRepository.existsById(proyecto.getIdProyecto())) {
+            throw new ApiException(400, "El proyecto con ID " + proyecto.getIdProyecto() + " ya existe");
+        }
+        proyectoJpaRepository.save(proyecto);
+        System.out.println("El proyecto se ha creado exitosamente");
+        return proyecto;
     }
  */
